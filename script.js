@@ -60,3 +60,30 @@ function displayPokemons(pokemon) {
     listWrapper.appendChild(listItem);
   });
 }
+
+searchInput.addEventListener("keyup", handleSearch);
+
+function handleSearch() {
+  const searchTerm = searchInput.value.toLowerCase(); // changing search input to lowerCase
+  let filteredPokemons;
+
+  if (numberFilter.checked) {
+    filteredPokemons = allPokemons.filter((pokemon) => {
+      const pokemonID = pokemon.url.split("/")[6]; //getting the pokemon id from the url
+      return pokemonID.startsWith(searchTerm); //checking if the pokemon id starts with the search term
+    });
+  } else if (nameFilter.checked) {
+    filteredPokemons = allPokemons.filter((pokemon) => {
+      return pokemon.name.toLowerCase().startsWith(searchTerm); //checking if the pokemon name starts with the search term
+    });
+  } else {
+    filteredPokemons = allPokemons; //if no filter is selected then displaying all the pokemons
+  }
+
+  displayPokemons(filteredPokemons);
+  if (filteredPokemons.length === 0) {
+    notFoundMessage.style.display = "block"; //if no pokemon is found then displaying the not found message
+  } else {
+    notFoundMessage.style.display = "none"; //if pokemon is found then hiding the not found message
+  }
+}
