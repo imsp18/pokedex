@@ -73,9 +73,9 @@ function handleSearch() {
       return pokemonID.startsWith(searchTerm); //checking if the pokemon id starts with the search term
     });
   } else if (nameFilter.checked) {
-    filteredPokemons = allPokemons.filter((pokemon) => {
-      return pokemon.name.toLowerCase().startsWith(searchTerm); //checking if the pokemon name starts with the search term
-    });
+    filteredPokemons = allPokemons.filter((pokemon) => 
+       pokemon.name.toLowerCase().startsWith(searchTerm) //checking if the pokemon name starts with the search term
+    );
   } else {
     filteredPokemons = allPokemons; //if no filter is selected then displaying all the pokemons
   }
@@ -87,3 +87,14 @@ function handleSearch() {
     notFoundMessage.style.display = "none"; //if pokemon is found then hiding the not found message
   }
 }
+
+const closeButton = document.querySelector(".search-close-icon");
+
+closeButton.addEventListener("click", clearSearch);
+
+function clearSearch(){
+  searchInput.value = ""; //clearing the search input
+  displayPokemons(allPokemons); //displaying all the pokemons
+  notFoundMessage.style.display = "none"
+}
+
